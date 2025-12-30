@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Image Explanation & Visual Q&A</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Image Explanation and Visual Question Answering</h1>
+    <p class="subtitle">
+        Upload an image to get a detailed explanation and ask multiple questions about it.
+    </p>
+
+    <!-- Image Upload -->
+    <input type="file" id="imageInput" accept="image/*" />
+
+    <!-- Image Preview -->
+    <div id="imagePreviewContainer">
+        <img id="imagePreview" />
+    </div>
+
+    <!-- Explanation Section -->
+    <button id="explainBtn">Generate Image Explanation</button>
+    <div id="explainLoading" class="loading">Generating explanation...</div>
+    <div id="explanation" class="output"></div>
+
+    <hr />
+
+    <!-- Question Section -->
+    <input type="text" id="questionInput" placeholder="Ask a question about the image" />
+    <button id="askBtn">Get Answer</button>
+    <div id="qaLoading" class="loading">Answering question...</div>
+
+    <!-- Q&A History -->
+    <div id="qaHistory"></div>
+
+    <!-- Error -->
+    <div id="error" class="error"></div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

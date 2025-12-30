@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f6f6f6;
+}
+
+.container {
+    width: 600px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h1 {
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 14px;
+}
+
+input[type="file"],
+input[type="text"] {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+}
+
+button {
+    padding: 8px 14px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+#imagePreviewContainer {
+    margin-top: 10px;
+}
+
+#imagePreview {
+    max-width: 100%;
+    display: none;
+}
+
+.loading {
+    display: none;
+    color: #777;
+    margin-top: 10px;
+}
+
+.output {
+    margin-top: 10px;
+    padding: 10px;
+    background: #eef2ff;
+    border-radius: 5px;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+hr {
+    margin: 25px 0;
+}
