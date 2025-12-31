@@ -1,3 +1,5 @@
-google-generativeai
-Pillow
+fastapi
+uvicorn
+python-multipart
+google-genai
 python-dotenv

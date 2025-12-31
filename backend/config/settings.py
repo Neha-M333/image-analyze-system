@@ -5,7 +5,5 @@ load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-if GEMINI_API_KEY is None:
-    raise EnvironmentError(
-        "GEMINI_API_KEY not found. Please set it in your .env file."
-    )
+if not GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY not found in .env file")
