@@ -1,94 +1,107 @@
+const chat = document.getElementById("chat");
 const imageInput = document.getElementById("imageInput");
-const imagePreview = document.getElementById("imagePreview");
-
-const explainBtn = document.getElementById("explainBtn");
-const askBtn = document.getElementById("askBtn");
-
-const explainLoading = document.getElementById("explainLoading");
-const qaLoading = document.getElementById("qaLoading");
-
-const explanationDiv = document.getElementById("explanation");
-const qaHistoryDiv = document.getElementById("qaHistory");
-const errorDiv = document.getElementById("error");
-
-const questionInput = document.getElementById("questionInput");
+const preview = document.getElementById("preview");
+const progress = document.getElementById("progress");
+const quotaInfo = document.getElementById("quotaInfo");
 
 let imageFile = null;
+let chatLog = [];
+let theme = "light";
 
-/* ---------------- Image Preview ---------------- */
+function timestamp() {
+  return new Date().toLocaleTimeString();
+}
+
+function addMessage(text, type) {
+  const div = document.createElement("div");
+  div.className = `message ${type}`;
+
+  const content = document.createElement("div");
+  content.innerText = text;
+
+  const time = document.createElement("div");
+  time.className = "timestamp";
+  time.innerText = timestamp();
+
+  div.appendChild(content);
+  div.appendChild(time);
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+
+  chatLog.push(`[${type.toUpperCase()} ${time.innerText}] ${text}`);
+}
+
 imageInput.addEventListener("change", () => {
-    imageFile = imageInput.files[0];
-    if (!imageFile) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-        imagePreview.src = reader.result;
-        imagePreview.style.display = "block";
-    };
-    reader.readAsDataURL(imageFile);
+  imageFile = imageInput.files[0];
+  preview.src = URL.createObjectURL(imageFile);
+  preview.style.display = "block";
+  addMessage("Image uploaded successfully.", "system");
 });
 
-/* ---------------- Image Explanation ---------------- */
-explainBtn.addEventListener("click", async () => {
-    if (!imageFile) {
-        errorDiv.innerText = "Please upload an image.";
-        return;
-    }
+async function generateExplanation() {
+  if (!imageFile) return;
 
-    errorDiv.innerText = "";
-    explainLoading.style.display = "block";
+  addMessage("Explain this image.", "user");
+  progress.style.display = "block";
 
-    const formData = new FormData();
-    formData.append("image", imageFile);
+  const formData = new FormData();
+  formData.append("image", imageFile);
 
-    try {
-        const response = await fetch("http://localhost:8000/explain", {
-            method: "POST",
-            body: formData
-        });
+  const res = await fetch("http://127.0.0.1:8000/explain-image", {
+    method: "POST",
+    body: formData
+  });
 
-        const data = await response.json();
-        explanationDiv.innerText = data.explanation;
-    } catch {
-        errorDiv.innerText = "Failed to generate explanation.";
-    } finally {
-        explainLoading.style.display = "none";
-    }
-});
+  const data = await res.json();
+  progress.style.display = "none";
 
-/* ---------------- Question Answering ---------------- */
-askBtn.addEventListener("click", async () => {
-    const question = questionInput.value.trim();
+  addMessage(data.result, "ai");
+  quotaInfo.innerText = `${data.used} / 20`;
+}
 
-    if (!imageFile || question === "") {
-        errorDiv.innerText = "Upload an image and enter a question.";
-        return;
-    }
+async function askQuestion() {
+  const question = document.getElementById("question").value;
+  if (!imageFile || !question) return;
 
-    errorDiv.innerText = "";
-    qaLoading.style.display = "block";
+  addMessage(question, "user");
+  document.getElementById("question").value = "";
+  progress.style.display = "block";
 
-    const formData = new FormData();
-    formData.append("image", imageFile);
-    formData.append("question", question);
+  const formData = new FormData();
+  formData.append("image", imageFile);
+  formData.append("question", question);
 
-    try {
-        const response = await fetch("http://localhost:8000/ask", {
-            method: "POST",
-            body: formData
-        });
+  const res = await fetch("http://127.0.0.1:8000/ask-question", {
+    method: "POST",
+    body: formData
+  });
 
-        const data = await response.json();
+  const data = await res.json();
+  progress.style.display = "none";
 
-        const qaItem = document.createElement("div");
-        qaItem.classList.add("output");
-        qaItem.innerHTML = `<strong>Q:</strong> ${question}<br><strong>A:</strong> ${data.answer}`;
+  addMessage(data.result, "ai");
+  quotaInfo.innerText = `${data.used} / 20`;
+}
 
-        qaHistoryDiv.appendChild(qaItem);
-        questionInput.value = "";
-    } catch {
-        errorDiv.innerText = "Failed to answer question.";
-    } finally {
-        qaLoading.style.display = "none";
-    }
-});
+function resetChat() {
+  chat.innerHTML = "";
+  preview.style.display = "none";
+  imageInput.value = "";
+  imageFile = null;
+  chatLog = [];
+  addMessage("New image session started.", "system");
+}
+
+function exportChat() {
+  const blob = new Blob([chatLog.join("\n\n")], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "image_chat_log.txt";
+  link.click();
+}
+
+function toggleTheme() {
+  const body = document.body;
+  theme = body.classList.contains("light") ? "dark" : "light";
+  body.className = theme;
+}

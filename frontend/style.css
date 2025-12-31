@@ -1,65 +1,170 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f6f6f6;
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  transition: background 0.3s, color 0.3s;
 }
 
-.container {
-    width: 600px;
-    margin: 30px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
+/* ---------- LIGHT MODE ---------- */
+
+body.light {
+  background: #f7f7f8;
+  color: #1f2937;
 }
 
-h1 {
-    margin-bottom: 5px;
+body.light .header,
+body.light .upload-bar,
+body.light .input-bar {
+  background: #ffffff;
 }
 
-.subtitle {
-    color: #555;
-    font-size: 14px;
+body.light .message.ai {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
 }
 
-input[type="file"],
-input[type="text"] {
-    width: 100%;
-    margin: 10px 0;
-    padding: 8px;
+body.light .message.user {
+  background: #dbeafe;
 }
 
-button {
-    padding: 8px 14px;
-    margin-top: 5px;
-    cursor: pointer;
+body.light .system {
+  background: #fef3c7;
 }
 
-#imagePreviewContainer {
-    margin-top: 10px;
+/* ---------- DARK MODE ---------- */
+
+body.dark {
+  background: #0f172a;
+  color: #e5e7eb;
 }
 
-#imagePreview {
-    max-width: 100%;
-    display: none;
+body.dark .header,
+body.dark .upload-bar,
+body.dark .input-bar {
+  background: #020617;
 }
 
-.loading {
-    display: none;
-    color: #777;
-    margin-top: 10px;
+body.dark .message.ai {
+  background: #020617;
+  border: 1px solid #334155;
 }
 
-.output {
-    margin-top: 10px;
-    padding: 10px;
-    background: #eef2ff;
-    border-radius: 5px;
+body.dark .message.user {
+  background: #1e293b;
 }
 
-.error {
-    color: red;
-    margin-top: 10px;
+body.dark .system {
+  background: #3f3f46;
 }
 
-hr {
-    margin: 25px 0;
+/* ---------- LAYOUT ---------- */
+
+.app {
+  max-width: 900px;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 12px 20px;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.header button {
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.upload-bar {
+  padding: 10px;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  gap: 10px;
+}
+
+.image-preview {
+  max-width: 300px;
+  margin: 10px auto;
+  display: none;
+  border-radius: 6px;
+}
+
+.chat {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.message {
+  max-width: 75%;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  white-space: pre-wrap;
+}
+
+.user {
+  margin-left: auto;
+}
+
+.system {
+  margin: auto;
+  font-size: 13px;
+  text-align: center;
+}
+
+.timestamp {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.input-bar {
+  padding: 15px;
+  border-top: 1px solid #334155;
+  display: flex;
+  gap: 10px;
+}
+
+.input-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #475569;
+  background: transparent;
+  color: inherit;
+}
+
+/* ---------- PROGRESS ---------- */
+
+.progress-container {
+  display: none;
+  height: 4px;
+  background: #334155;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(90deg, #10a37f, #34d399);
+  animation: loading 1.2s infinite;
+}
+
+@keyframes loading {
+  0% { margin-left: -40%; }
+  100% { margin-left: 100%; }
 }
