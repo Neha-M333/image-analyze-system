@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ---------- LIGHT MODE ---------- */
+
+body.light {
+  background: #f7f7f8;
+  color: #1f2937;
+}
+
+body.light .header,
+body.light .upload-bar,
+body.light .input-bar {
+  background: #ffffff;
+}
+
+body.light .message.ai {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+body.light .message.user {
+  background: #dbeafe;
+}
+
+body.light .system {
+  background: #fef3c7;
+}
+
+/* ---------- DARK MODE ---------- */
+
+body.dark {
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+body.dark .header,
+body.dark .upload-bar,
+body.dark .input-bar {
+  background: #020617;
+}
+
+body.dark .message.ai {
+  background: #020617;
+  border: 1px solid #334155;
+}
+
+body.dark .message.user {
+  background: #1e293b;
+}
+
+body.dark .system {
+  background: #3f3f46;
+}
+
+/* ---------- LAYOUT ---------- */
+
+.app {
+  max-width: 900px;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 12px 20px;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.header button {
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.upload-bar {
+  padding: 10px;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  gap: 10px;
+}
+
+.image-preview {
+  max-width: 300px;
+  margin: 10px auto;
+  display: none;
+  border-radius: 6px;
+}
+
+.chat {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.message {
+  max-width: 75%;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  white-space: pre-wrap;
+}
+
+.user {
+  margin-left: auto;
+}
+
+.system {
+  margin: auto;
+  font-size: 13px;
+  text-align: center;
+}
+
+.timestamp {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.input-bar {
+  padding: 15px;
+  border-top: 1px solid #334155;
+  display: flex;
+  gap: 10px;
+}
+
+.input-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #475569;
+  background: transparent;
+  color: inherit;
+}
+
+/* ---------- PROGRESS ---------- */
+
+.progress-container {
+  display: none;
+  height: 4px;
+  background: #334155;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(90deg, #10a37f, #34d399);
+  animation: loading 1.2s infinite;
+}
+
+@keyframes loading {
+  0% { margin-left: -40%; }
+  100% { margin-left: 100%; }
+}

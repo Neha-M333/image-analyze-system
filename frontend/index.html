@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Understanding Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light">
+
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <h2>Image Understanding Assistant</h2>
+
+    <div class="header-actions">
+      <span id="quotaInfo">0 / 20</span>
+      <button onclick="toggleTheme()">🌙 / ☀️</button>
+      <button onclick="exportChat()">Export</button>
+      <button onclick="resetChat()">New Image</button>
+    </div>
+  </header>
+
+  <!-- Upload -->
+  <div class="upload-bar">
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="generateExplanation()">Explain Image</button>
+  </div>
+
+  <img id="preview" class="image-preview">
+
+  <!-- Chat -->
+  <div class="chat" id="chat"></div>
+
+  <!-- Progress -->
+  <div class="progress-container" id="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <!-- Input -->
+  <div class="input-bar">
+    <input type="text" id="question" placeholder="Ask a question about the image...">
+    <button onclick="askQuestion()">Send</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
